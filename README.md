@@ -1,2 +1,2 @@
 # my-first-side-scroller
-A side-scrolling 2D game made with Phaser.
+A side-scrolling video game made with Phaser.
