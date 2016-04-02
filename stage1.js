@@ -6,7 +6,7 @@ function preload() {
     game.load.image('ground', 'assets/platform2.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
 
 }
 
@@ -41,13 +41,13 @@ function create() {
     ledge.body.immovable = true;
     
     // add player
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(32, game.world.height - 150, 'loli');
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.2;
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+    player.animations.add('left', [0, 1, 2, 3], 8, true);
+    player.animations.add('right', [5, 6, 7, 8], 8, true);
     player.health = 100;
     
     // add spikes
