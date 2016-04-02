@@ -3,7 +3,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 function preload() {
 
     game.load.image('sky', 'assets/sky2.jpg');
-    game.load.image('ground', 'assets/platform2.png');
+    game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
     game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
