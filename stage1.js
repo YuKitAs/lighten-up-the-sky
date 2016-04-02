@@ -5,7 +5,7 @@ function preload() {
     game.load.image('sky', 'assets/sky2.jpg');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('baddie', 'assets/baddie.png', 32, 32);
+    game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
     game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
 
 }
@@ -52,8 +52,8 @@ function create() {
     
     // add spikes
     spikes = [];
-    spikes[0] = game.add.sprite(400, game.world.height - 150, 'baddie');
-    spikes[1] = game.add.sprite(700, game.world.height - 400, 'baddie'); 
+    spikes[0] = game.add.sprite(400, game.world.height - 150, 'shirokuma');
+    spikes[1] = game.add.sprite(700, game.world.height - 400, 'shirokuma'); 
     
     for (var i = 0; i < spikes.length; i++) {
         initSpike(spikes[i]);
@@ -129,8 +129,8 @@ function initSpike(spike) {
     game.physics.arcade.enable(spike);
     spike.body.gravity.y = 300;
     spike.body.collideWorldBounds = true;
-    spike.animations.add('left', [0, 1], 10, true);
-    spike.animations.add('right', [2, 3], 10, true);
+    spike.animations.add('left', [0, 1], 6, true);
+    spike.animations.add('right', [2, 3], 6, true);
     
 }
 
