@@ -37,14 +37,14 @@ function create() {
     // add ledges
     var ledge = platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
-    ledge = platforms.create(-150, 250, 'ground');
+    ledge = platforms.create(-150, 300, 'ground');
     ledge.body.immovable = true;
     
     // add player
     player = game.add.sprite(32, game.world.height - 150, 'loli');
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
+    player.body.gravity.y = 350;
     player.body.collideWorldBounds = true;
     player.animations.add('left', [0, 1, 2, 3], 8, true);
     player.animations.add('right', [5, 6, 7, 8], 8, true);
@@ -139,7 +139,7 @@ function collectStar(player, star) {
     star.kill();
     
     score += 10;
-    scoreText.text = 'Score: ' + score;
+    scoreText.text = 'score: ' + score;
 
 }
 
