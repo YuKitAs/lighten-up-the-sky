@@ -2,8 +2,8 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
 
-    game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
+    game.load.image('sky', 'assets/sky1.png');
+    game.load.image('ground', 'assets/platform2.png');
     game.load.image('star', 'assets/star.png');
     game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
     game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
@@ -37,7 +37,13 @@ function create() {
     // add ledges
     var ledge = platforms.create(400, 400, 'ground');
     ledge.body.immovable = true;
-    ledge = platforms.create(-150, 300, 'ground');
+    ledge = platforms.create(-150, 280, 'ground');
+    ledge.body.immovable = true;
+    ledge = platforms.create(395, 200, 'ground');
+    ledge.scale.setTo(0.35, 1);
+    ledge.body.immovable = true;
+    ledge = platforms.create(680, 130, 'ground');
+    ledge.scale.setTo(0.3, 1);
     ledge.body.immovable = true;
     
     // add player
@@ -75,10 +81,10 @@ function create() {
     }
  
     // add score text
-    scoreText = game.add.text(60, 60, 'score: 0', { fontSize: '32px', fill: '#000' });
+    scoreText = game.add.text(60, 60, 'score: 0', { fontSize: '32px', fill: '#FFF' });
     
     // add health text
-    healthText = game.add.text(545, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#000' });;
+    healthText = game.add.text(545, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#FFF' });;
  
     // set cursors
     cursors = game.input.keyboard.createCursorKeys();
@@ -116,7 +122,7 @@ function update() {
     }
     
     if (score == 120) {
-        resultText = game.add.text(330, 250, 'STAGE CLEAR', { fontSize: '200px', fill: '#000', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+        resultText = game.add.text(330, 250, 'STAGE CLEAR', { fontSize: '200px', fill: '#FFF', wordWrap: true, wordWrapWidth: 6, align: 'center' });
         player.body.enable = false;
         spikes[0].body.enable = false;
         spikes[1].body.enable = false;
@@ -218,6 +224,6 @@ function killPlayer(player, spike) {
     
     spike.body.enable = false;
 
-    resultText = game.add.text(330, 250, 'GAME OVER', { fontSize: '200px', fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+    resultText = game.add.text(330, 250, 'GAME OVER', { fontSize: '200px', fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
     
 }
