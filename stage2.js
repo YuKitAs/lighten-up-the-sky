@@ -21,7 +21,7 @@ stage2.prototype = {
     preload: function() {
       
         this.game.load.image('sky', 'assets/sky2.png');
-        this.game.load.image('ground', 'assets/platform2.png');
+        this.game.load.image('ground', 'assets/platform.png');
         this.game.load.image('star', 'assets/star.png');
         this.game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
         this.game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
@@ -43,13 +43,23 @@ stage2.prototype = {
         ground.body.immovable = true;
         
         // add ledges
-        var ledge = platforms.create(400, 400, 'ground');
+        var ledge = platforms.create(550, 400, 'ground');
         ledge.body.immovable = true;
-        ledge = platforms.create(-150, 280, 'ground');
+        ledge = platforms.create(50, 200, 'ground');
+        ledge.scale.setTo(0.5, 1);
+        ledge.body.immovable = true;
+        ledge = platforms.create(335, 300, 'ground');
+        ledge.scale.setTo(0.3, 1);
+        ledge.body.immovable = true;
+        ledge = platforms.create(615, 180, 'ground');
+        ledge.scale.setTo(0.3, 1);
+        ledge.body.immovable = true;
+        ledge = platforms.create(-30, 400, 'ground');
+        ledge.scale.setTo(0.18, 1);
         ledge.body.immovable = true;
         
         // add player
-        player = this.game.add.sprite(32, this.game.world.height - 150, 'loli');
+        player = this.game.add.sprite(50, this.game.world.height - 500, 'loli');
         this.game.physics.arcade.enable(player);
         player.body.bounce.y = 0.2;
         player.body.gravity.y = 350;
@@ -60,8 +70,9 @@ stage2.prototype = {
         
         // add spikes
         spikes = [];
-        spikes[0] = this.game.add.sprite(400, this.game.world.height - 150, 'shirokuma');
+        spikes[0] = this.game.add.sprite(280, this.game.world.height - 150, 'shirokuma');
         spikes[1] = this.game.add.sprite(700, this.game.world.height - 400, 'shirokuma'); 
+        spikes[2] = this.game.add.sprite(450, this.game.world.height - 150, 'shirokuma'); 
         
         for (var i = 0; i < spikes.length; i++) {
             this.initSpike(spikes[i]);
@@ -69,6 +80,7 @@ stage2.prototype = {
         
         this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike, this);
         this.game.time.events.loop(Phaser.Timer.SECOND, this.moveSpike2, this);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike3, this);
 
         // add stars
         stars = this.game.add.group();
@@ -150,7 +162,7 @@ stage2.prototype = {
         
         if (spikes[0].body.position.x <= 200) {
             spikeMover = 1;
-        } else if (spikes[0].body.position.x >= 300) {
+        } else if (spikes[0].body.position.x >= 500) {
             spikeMover = 2;
         }
         
@@ -168,7 +180,7 @@ stage2.prototype = {
 
         var spikeMover = this.game.rnd.integerInRange(1, 2);
         
-        if (spikes[1].body.position.x <= 420) {
+        if (spikes[1].body.position.x <= 550) {
             spikeMover = 1;
         } else if (spikes[1].body.position.x >= 600) {
             spikeMover = 2;
@@ -182,6 +194,26 @@ stage2.prototype = {
             spikes[1].animations.play('left');
         }
         
+    },
+    
+    moveSpike3: function() {
+               
+        var spikeMover = this.game.rnd.integerInRange(1, 2);
+        
+        if (spikes[2].body.position.x <= 150) {
+            spikeMover = 1;
+        } else if (spikes[2].body.position.x >= 400) {
+            spikeMover = 2;
+        }
+        
+        if (spikeMover == 1) {
+            spikes[2].body.velocity.x = 50;
+            spikes[2].animations.play('right');	
+        }	else if (spikeMover == 2) {
+            spikes[2].body.velocity.x = -50;
+            spikes[2].animations.play('left');
+        }
+      
     },
 
     hurtPlayer: function(player, spike) {
