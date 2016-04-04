@@ -20,7 +20,7 @@ stage2.prototype = {
   
     preload: function() {
       
-        this.game.load.image('sky', 'assets/sky2.png');
+        this.game.load.image('sky', 'assets/sky.png');
         this.game.load.image('ground', 'assets/platform.png');
         this.game.load.image('star', 'assets/star.png');
         this.game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
@@ -96,8 +96,10 @@ stage2.prototype = {
         scoreText = this.game.add.text(60, 60, 'score: ' + this.score, { fontSize: '32px', fill: '#000' });
         
         // add health text
-        // this.player.health = stage1.player.health;
         healthText = this.game.add.text(545, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#000' });
+        
+        // add level text
+        this.game.add.text(350, 20, 'Level 2', { fontSize: '24px', fill: '#FFF' });
      
         // set cursors
         cursors = this.game.input.keyboard.createCursorKeys();
@@ -133,6 +135,15 @@ stage2.prototype = {
         if (player.health > 0) {
             this.game.physics.arcade.overlap(player, stars, this.collectStar, null, this);
             this.game.physics.arcade.overlap(player, spikes, this.hurtPlayer, null, this);       
+        }
+        
+        if (this.score == 240) {
+            resultText = this.game.add.text(350, 230, 'STAGE CLEAR', { fontSize: '200px', fill: '#000', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+            player.body.enable = false;
+            spikes[0].body.enable = false;
+            spikes[1].body.enable = false;
+
+            game.time.events.add(Phaser.Timer.SECOND * 3, this.switchState, this);
         }
       
     },
@@ -180,9 +191,9 @@ stage2.prototype = {
 
         var spikeMover = this.game.rnd.integerInRange(1, 2);
         
-        if (spikes[1].body.position.x <= 550) {
+        if (spikes[1].body.position.x <= 600) {
             spikeMover = 1;
-        } else if (spikes[1].body.position.x >= 600) {
+        } else if (spikes[1].body.position.x >= 670) {
             spikeMover = 2;
         }
         
@@ -251,8 +262,14 @@ stage2.prototype = {
         
         spike.body.enable = false;
 
-        resultText = this.game.add.text(330, 250, 'GAME OVER', { fontSize: '200px', fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText = this.game.add.text(350, 230, 'GAME OVER', { fontSize: '200px', fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
         
+    },
+    
+    switchState: function() {
+      
+      this.game.state.start('stage3', true, false, this.score, player.health);
+      
     }
     
 };
