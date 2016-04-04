@@ -1,2 +1,2 @@
-# my-first-side-scroller
-A side-scrolling video game made with Phaser.
+# my-first-2D-ACT
+A 2D action game made with Phaser.
