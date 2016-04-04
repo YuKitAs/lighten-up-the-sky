@@ -13,11 +13,11 @@ var stage1 = function(game) {
 stage1.prototype = {
     preload: function() {
 
-      this.game.load.image('sky', 'assets/sky1.png');
-      this.game.load.image('ground', 'assets/platform1.png');
-      this.game.load.image('star', 'assets/star.png');
-      this.game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
-      this.game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
+        this.game.load.image('sky', 'assets/sky1.png');
+        this.game.load.image('ground', 'assets/platform1.png');
+        this.game.load.image('star', 'assets/star.png');
+        this.game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
+        this.game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
 
     },
 
@@ -84,7 +84,7 @@ stage1.prototype = {
         scoreText = this.game.add.text(60, 60, 'score: 0', { fontSize: '32px', fill: '#FFF' });
         
         // add health text
-        healthText = this.game.add.text(545, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#FFF' });;
+        healthText = this.game.add.text(545, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#FFF' });
      
         // set cursors
         cursors = this.game.input.keyboard.createCursorKeys();
@@ -128,7 +128,7 @@ stage1.prototype = {
             spikes[0].body.enable = false;
             spikes[1].body.enable = false;
 
-            game.time.events.add(Phaser.Timer.SECOND * 4, this.switchState, this);
+            game.time.events.add(Phaser.Timer.SECOND * 3, this.switchState, this);
         }
         
     },
@@ -233,7 +233,7 @@ stage1.prototype = {
     
     switchState: function() {
       
-      this.game.state.start('stage2');
+      this.game.state.start('stage2', true, false, this.score, player.health);
       
     }
 }
