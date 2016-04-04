@@ -92,6 +92,7 @@ stage1.prototype = {
     },
 
     update: function() {
+            
         this.game.physics.arcade.collide(player, platforms);
         this.game.physics.arcade.collide(stars, platforms); 
         
@@ -127,7 +128,7 @@ stage1.prototype = {
             spikes[0].body.enable = false;
             spikes[1].body.enable = false;
 
-            this.game.state.start('stage2');
+            game.time.events.add(Phaser.Timer.SECOND * 4, this.switchState, this);
         }
         
     },
@@ -228,6 +229,12 @@ stage1.prototype = {
 
         resultText = this.game.add.text(330, 250, 'GAME OVER', { fontSize: '200px', fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
         
+    },
+    
+    switchState: function() {
+      
+      this.game.state.start('stage2');
+      
     }
 }
 
