@@ -10,15 +10,25 @@ var stage1 = function(game) {
     var resultText;
 };
 
+WebFontConfig = {
+  
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+    google: {
+      families: ['Revalia', 'Righteous']
+    }
+    
+};
+
 stage1.prototype = {
     preload: function() {
 
+        this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js');
         this.game.load.image('sky', 'assets/sky1.png');
         this.game.load.image('ground', 'assets/platform1.png');
         this.game.load.image('star', 'assets/star.png');
         this.game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
         this.game.load.spritesheet('loli', 'assets/loli.png', 32, 48);
-
+      
     },
 
     create: function() {
@@ -84,10 +94,12 @@ stage1.prototype = {
         scoreText = this.game.add.text(60, 60, 'score: 0', { fontSize: '32px', fill: '#FFF' });
         
         // add health text
-        healthText = this.game.add.text(545, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#FFF' });
+        healthText = this.game.add.text(550, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#FFF' });
      
         // add level text
-        this.game.add.text(350, 20, 'Level 1', { fontSize: '24px', fill: '#FFF' });
+        var levelText = this.game.add.text(345, 20, 'Level 1', { fill: '#FFF' });
+        levelText.font = 'Revalia';
+        levelText.fontSize = 20;
      
         // set cursors
         cursors = this.game.input.keyboard.createCursorKeys();
@@ -128,7 +140,10 @@ stage1.prototype = {
         }
         
         if (this.score == 120) {
-            resultText = this.game.add.text(330, 250, 'STAGE CLEAR', { fontSize: '200px', fill: '#FFF', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+            resultText = this.game.add.text(310, 235, 'STAGE CLEAR', { fill: '#FFF', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+            resultText.font = 'Righteous';
+            resultText.fontSize = 50;
+            
             player.body.enable = false;
             spikes[0].body.enable = false;
             spikes[1].body.enable = false;
@@ -232,7 +247,9 @@ stage1.prototype = {
         
         spike.body.enable = false;
 
-        resultText = this.game.add.text(330, 250, 'GAME OVER', { fontSize: '200px', fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText = this.game.add.text(320, 235, 'GAME OVER', {fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText.font = 'Righteous';
+        resultText.fontSize = 50;
         
     },
     

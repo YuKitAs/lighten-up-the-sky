@@ -11,6 +11,15 @@ var stage2 = function(game) {
     var resultText;
 };
 
+WebFontConfig = {
+  
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+    google: {
+      families: ['Revalia', 'Righteous']
+    }
+    
+};
+
 stage2.prototype = {
   
     init: function(score, health) {
@@ -20,6 +29,7 @@ stage2.prototype = {
   
     preload: function() {
       
+        this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js');
         this.game.load.image('sky', 'assets/sky.png');
         this.game.load.image('ground', 'assets/platform.png');
         this.game.load.image('star', 'assets/star.png');
@@ -96,10 +106,12 @@ stage2.prototype = {
         scoreText = this.game.add.text(60, 60, 'score: ' + this.score, { fontSize: '32px', fill: '#000' });
         
         // add health text
-        healthText = this.game.add.text(545, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#000' });
+        healthText = this.game.add.text(550, 55, 'HP: ' + player.health, { fontSize: '32px', fill: '#000' });
         
         // add level text
-        this.game.add.text(350, 20, 'Level 2', { fontSize: '24px', fill: '#FFF' });
+        var levelText = this.game.add.text(345, 20, 'Level 2', { fill: '#FFF' });
+        levelText.font = 'Revalia';
+        levelText.fontSize = 20;
      
         // set cursors
         cursors = this.game.input.keyboard.createCursorKeys();
@@ -138,7 +150,10 @@ stage2.prototype = {
         }
         
         if (this.score == 240) {
-            resultText = this.game.add.text(350, 230, 'STAGE CLEAR', { fontSize: '200px', fill: '#000', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+            resultText = this.game.add.text(315, 185, 'STAGE CLEAR', { fill: '#000', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+            resultText.font = 'Righteous';
+            resultText.fontSize = 50;
+            
             player.body.enable = false;
             spikes[0].body.enable = false;
             spikes[1].body.enable = false;
@@ -262,7 +277,9 @@ stage2.prototype = {
         
         spike.body.enable = false;
 
-        resultText = this.game.add.text(350, 230, 'GAME OVER', { fontSize: '200px', fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText = this.game.add.text(320, 185, 'GAME OVER', { fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText.font = 'Righteous';
+        resultText.fontSize = 50;
         
     },
     
