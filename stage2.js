@@ -277,15 +277,36 @@ stage2.prototype = {
         
         spike.body.enable = false;
 
-        resultText = this.game.add.text(320, 185, 'GAME OVER', { fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText = this.game.add.text(320, 200, 'GAME OVER', { fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
         resultText.font = 'Righteous';
         resultText.fontSize = 50;
+        
+        var restart = this.game.add.text(320, 322, 'click to restart', {fill: '#FFF'});
+        restart.fontSize = 22;
+        
+        window.onclick = function() {
+            this.game.state.start('stage2', true, false, window.score, window.health);
+        }
         
     },
     
     switchState: function() {
       
+      this.setScore();
+      this.setHealth();
       this.game.state.start('stage3', true, false, this.score, player.health);
+      
+    },
+    
+    setScore: function() {
+      
+      window.score = this.score;
+      
+    },
+    
+    setHealth: function() {
+      
+      window.health = player.health;
       
     }
     

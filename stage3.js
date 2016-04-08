@@ -301,9 +301,16 @@ stage3.prototype = {
         
         spike.body.enable = false;
 
-        resultText = this.game.add.text(325, 180, 'GAME OVER', { fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText = this.game.add.text(320, 200, 'GAME OVER', { fill: '#000', wordWrap: true, wordWrapWidth: 5, align: 'center' });
         resultText.font = 'Righteous';
         resultText.fontSize = 50;
+        
+        var restart = this.game.add.text(320, 322, 'click to restart', {fill: '#FFF'});
+        restart.fontSize = 22;
+        
+        window.onclick = function() {
+            this.game.state.start('stage3', true, false, window.score, window.health);
+        }
         
     },
     

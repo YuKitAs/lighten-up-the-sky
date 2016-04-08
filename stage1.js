@@ -8,6 +8,7 @@ var stage1 = function(game) {
     var score;
     var scoreText;
     var resultText;
+
 };
 
 WebFontConfig = {
@@ -247,15 +248,36 @@ stage1.prototype = {
         
         spike.body.enable = false;
 
-        resultText = this.game.add.text(320, 235, 'GAME OVER', {fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
+        resultText = this.game.add.text(320, 200, 'GAME OVER', {fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
         resultText.font = 'Righteous';
         resultText.fontSize = 50;
+        
+        var restart = this.game.add.text(320, 320, 'click to restart', {fill: '#FFF'});
+        restart.fontSize = 22;
+        
+        window.onclick = function() {
+            this.game.state.start('stage1');
+        }
         
     },
     
     switchState: function() {
       
+      this.setScore();
+      this.setHealth();
       this.game.state.start('stage2', true, false, this.score, player.health);
+      
+    },
+    
+    setScore: function() {
+      
+      window.score = this.score;
+      
+    },
+    
+    setHealth: function() {
+      
+      window.health = player.health;
       
     }
 }
