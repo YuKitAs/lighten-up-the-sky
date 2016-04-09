@@ -6,7 +6,6 @@ var stage1 = function(game) {
     var spikes;
     var platforms;
     var cursors;
-
     var stars;
     var score;
     var scoreText;
@@ -210,5 +209,4 @@ stage1.prototype = {
         
     },
 
-}
-
+};

@@ -7,7 +7,6 @@ var stage3 = function(game) {
     var spikes;
     var platforms;
     var cursors;
-
     var stars;
     var score;
     var scoreText;
@@ -197,21 +196,21 @@ stage3.prototype = {
     
     moveSpike4: function() {
       
-      var spikeMover = this.game.rnd.integerInRange(1, 2);
-        
-        if (spikes[3].body.position.x <= 50) {
-            spikeMover = 1;
-        } else if (spikes[3].body.position.x >= 150) {
-            spikeMover = 2;
-        }
-        
-        if (spikeMover == 1) {
-            spikes[3].body.velocity.x = 60;
-            spikes[3].animations.play('right');	
-        }	else if (spikeMover == 2) {
-            spikes[3].body.velocity.x = -60;
-            spikes[3].animations.play('left');
-        }
+        var spikeMover = this.game.rnd.integerInRange(1, 2);
+          
+          if (spikes[3].body.position.x <= 50) {
+              spikeMover = 1;
+          } else if (spikes[3].body.position.x >= 150) {
+              spikeMover = 2;
+          }
+          
+          if (spikeMover == 1) {
+              spikes[3].body.velocity.x = 60;
+              spikes[3].animations.play('right');	
+          }	else if (spikeMover == 2) {
+              spikes[3].body.velocity.x = -60;
+              spikes[3].animations.play('left');
+          }
       
     },
 
@@ -264,6 +263,3 @@ stage3.prototype = {
     },
     
 };
-
-
-
