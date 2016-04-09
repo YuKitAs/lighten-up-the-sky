@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var save = {
   
     setHealth: function() {

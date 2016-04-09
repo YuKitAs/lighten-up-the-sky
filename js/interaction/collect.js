@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var collect = {
   
     stars: function(player, star) {

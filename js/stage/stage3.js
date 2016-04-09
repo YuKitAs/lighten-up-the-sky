@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var stage3 = function(game) {
     var player;
     var health;

@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var upgrade = {  
 
     switchState: function(newState) {

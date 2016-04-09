@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var update = {
   
     setCollision: function(game) {

@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var init = {
   
     ground: function(platforms) {
