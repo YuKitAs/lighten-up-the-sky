@@ -33,7 +33,7 @@ stage3.prototype = {
     preload: function() {
       
         this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js');
-        this.game.load.image('sky', 'assets/sky3.png');
+        this.game.load.image('sky', 'assets/sky-3.png');
         this.game.load.image('ground', 'assets/platform-3.png');
         this.game.load.image('star', 'assets/star.png');
         this.game.load.spritesheet('shirokuma', 'assets/shirokuma.png', 32, 32);
