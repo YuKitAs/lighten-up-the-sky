@@ -74,7 +74,7 @@ stage1.prototype = {
         spikes[1] = this.game.add.sprite(700, this.game.world.height - 400, 'shirokuma');
         
         for (var i = 0; i < spikes.length; i++) {
-            this.initSpike(spikes[i]);
+            init.initSpike(spikes[i]);
         }
         
         // set movement of spikes
@@ -109,36 +109,14 @@ stage1.prototype = {
     },
 
     update: function() {
-            
-        // game.time.events.add(Phaser.Timer.SECOND * 3, this.switchState, this);
         
-        this.game.physics.arcade.collide(player, platforms);
-        this.game.physics.arcade.collide(stars, platforms); 
-        
-        for (var i = 0; i < spikes.length; i++) {
-            this.game.physics.arcade.collide(spikes[i], platforms);
-        }
-        
-        player.body.velocity.x = 0;
-
-        if (cursors.left.isDown) {
-            player.body.velocity.x = -150;
-            player.animations.play('left');
-        } else if (cursors.right.isDown) {
-            player.body.velocity.x = 150;
-            player.animations.play('right');
-        } else {
-            player.animations.stop();
-            player.frame = 4;
-        }
-
-        if (cursors.up.isDown && player.body.touching.down) {
-            player.body.velocity.y = -320;
-        }
+        update.setCollision(this.game);
+        update.setPlayerMovement();
+        update.setCursor();
         
         if (player.health > 0) {
-            this.game.physics.arcade.overlap(player, stars, this.collectStar, null, this);
-            this.game.physics.arcade.overlap(player, spikes, this.hurtPlayer, null, this);       
+            game.physics.arcade.overlap(player, stars, collect.collectStar, null, this);
+            game.physics.arcade.overlap(player, spikes, this.hurtPlayer, null, this);
         }
         
         if (this.score == 120) {
@@ -153,25 +131,6 @@ stage1.prototype = {
             game.time.events.add(Phaser.Timer.SECOND * 3, upgrade.switchState, this, ['stage2']);
         }
         
-    },
-
-    initSpike: function(spike) {
-        
-        this.game.physics.arcade.enable(spike);
-        spike.body.gravity.y = 300;
-        spike.body.collideWorldBounds = true;
-        spike.animations.add('left', [0, 1], 6, true);
-        spike.animations.add('right', [2, 3], 6, true);
-        
-    },
-
-    collectStar: function(player, star) {
-        
-        star.kill();
-        
-        this.score += 10;
-        scoreText.text = 'score: ' + this.score;
-
     },
 
     moveSpike1: function() {

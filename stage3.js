@@ -89,7 +89,7 @@ stage3.prototype = {
         spikes[3] = this.game.add.sprite(50, this.game.world.height - 400, 'shirokuma'); 
         
         for (var i = 0; i < spikes.length; i++) {
-            this.initSpike(spikes[i]);
+            init.initSpike(spikes[i]);
         }
         
         this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike1, this);
@@ -125,32 +125,12 @@ stage3.prototype = {
 
     update: function() {
       
-        this.game.physics.arcade.collide(player, platforms);
-        this.game.physics.arcade.collide(stars, platforms); 
-        
-        for (var i = 0; i < spikes.length; i++) {
-            this.game.physics.arcade.collide(spikes[i], platforms);
-        }
-        
-        player.body.velocity.x = 0;
-
-        if (cursors.left.isDown) {
-            player.body.velocity.x = -150;
-            player.animations.play('left');
-        } else if (cursors.right.isDown) {
-            player.body.velocity.x = 150;
-            player.animations.play('right');
-        } else {
-            player.animations.stop();
-            player.frame = 4;
-        }
-
-        if (cursors.up.isDown && player.body.touching.down) {
-            player.body.velocity.y = -320;
-        }
+        update.setCollision(this.game);
+        update.setPlayerMovement();
+        update.setCursor();
         
         if (player.health > 0) {
-            this.game.physics.arcade.overlap(player, stars, this.collectStar, null, this);
+            this.game.physics.arcade.overlap(player, stars, collect.collectStar, null, this);
             this.game.physics.arcade.overlap(player, spikes, this.hurtPlayer, null, this);       
         }
         
@@ -165,25 +145,6 @@ stage3.prototype = {
             spikes[1].body.enable = false;
         }
       
-    },
-    
-    initSpike: function(spike) {
-        
-        this.game.physics.arcade.enable(spike);
-        spike.body.gravity.y = 300;
-        spike.body.collideWorldBounds = true;
-        spike.animations.add('left', [0, 1], 6, true);
-        spike.animations.add('right', [2, 3], 6, true);
-        
-    },
-    
-    collectStar: function(player, star) {
-        
-        star.kill();
-        
-        this.score += 10;
-        scoreText.text = 'score: ' + this.score;
-
     },
 
     moveSpike1: function() {
@@ -309,7 +270,7 @@ stage3.prototype = {
         restart.fontSize = 22;
         
         window.onclick = function() {
-            this.game.state.start('stage3', true, false, window.score, window.health);
+            this.game.state.start('stage3', true, false, 240, window.health);
         }
         
     },
