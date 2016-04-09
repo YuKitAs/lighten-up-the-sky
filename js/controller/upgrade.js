@@ -7,7 +7,7 @@ var upgrade = {
     
         save.setHealth();
         
-        this.game.state.start(newState, true, false, this.score, player.health);
+        game.state.start(newState, true, false, this.score, player.health);
         
     }
     
