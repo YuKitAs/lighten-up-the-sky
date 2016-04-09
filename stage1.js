@@ -8,7 +8,6 @@ var stage1 = function(game) {
     var score;
     var scoreText;
     var resultText;
-
 };
 
 WebFontConfig = {
@@ -21,6 +20,7 @@ WebFontConfig = {
 };
 
 stage1.prototype = {
+  
     preload: function() {
 
         this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js');
@@ -71,13 +71,14 @@ stage1.prototype = {
         // add spikes
         spikes = [];
         spikes[0] = this.game.add.sprite(400, this.game.world.height - 150, 'shirokuma');
-        spikes[1] = this.game.add.sprite(700, this.game.world.height - 400, 'shirokuma'); 
+        spikes[1] = this.game.add.sprite(700, this.game.world.height - 400, 'shirokuma');
         
         for (var i = 0; i < spikes.length; i++) {
             this.initSpike(spikes[i]);
         }
         
-        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike, this);
+        // set movement of spikes
+        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike1, this);
         this.game.time.events.loop(Phaser.Timer.SECOND, this.moveSpike2, this);
 
         // add stars
@@ -141,7 +142,7 @@ stage1.prototype = {
         }
         
         if (this.score == 120) {
-            resultText = this.game.add.text(310, 235, 'STAGE CLEAR', { fill: '#FFF', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+            resultText = this.game.add.text(310, 200, 'STAGE CLEAR', { fill: '#FFF', wordWrap: true, wordWrapWidth: 6, align: 'center' });
             resultText.font = 'Righteous';
             resultText.fontSize = 50;
             
@@ -149,7 +150,7 @@ stage1.prototype = {
             spikes[0].body.enable = false;
             spikes[1].body.enable = false;
 
-            game.time.events.add(Phaser.Timer.SECOND * 3, this.switchState, this);
+            game.time.events.add(Phaser.Timer.SECOND * 3, upgrade.switchState, this, ['stage2']);
         }
         
     },
@@ -173,7 +174,7 @@ stage1.prototype = {
 
     },
 
-    moveSpike: function() {
+    moveSpike1: function() {
 
         var spikeMover = this.game.rnd.integerInRange(1, 2);
         
@@ -260,25 +261,6 @@ stage1.prototype = {
         }
         
     },
-    
-    switchState: function() {
-      
-      this.setScore();
-      this.setHealth();
-      this.game.state.start('stage2', true, false, this.score, player.health);
-      
-    },
-    
-    setScore: function() {
-      
-      window.score = this.score;
-      
-    },
-    
-    setHealth: function() {
-      
-      window.health = player.health;
-      
-    }
+
 }
 

@@ -4,6 +4,8 @@
 	<meta charset="UTF-8" />
 	<title>My First 2D ACT</title>
     <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <script type="text/javascript" src="save.js"></script>
+    <script type="text/javascript" src="upgrade.js"></script>
     <script type="text/javascript" src="stage1.js"></script>
     <script type="text/javascript" src="stage2.js"></script>
     <script type="text/javascript" src="stage3.js"></script>
@@ -15,8 +17,7 @@
 </head>
 <body>
   <script>
-    var game = new Phaser.Game(800, 600, Phaser.AUTO, "game");
-
+    var game = new Phaser.Game(800, 600, Phaser.AUTO);
     game.state.add('stage1', stage1, true);
     game.state.add('stage2', stage2);
     game.state.add('stage3', stage3);

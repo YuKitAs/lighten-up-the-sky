@@ -88,7 +88,7 @@ stage2.prototype = {
             this.initSpike(spikes[i]);
         }
         
-        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike, this);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike1, this);
         this.game.time.events.loop(Phaser.Timer.SECOND, this.moveSpike2, this);
         this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike3, this);
 
@@ -150,7 +150,7 @@ stage2.prototype = {
         }
         
         if (this.score == 240) {
-            resultText = this.game.add.text(315, 185, 'STAGE CLEAR', { fill: '#000', wordWrap: true, wordWrapWidth: 6, align: 'center' });
+            resultText = this.game.add.text(315, 200, 'STAGE CLEAR', { fill: '#000', wordWrap: true, wordWrapWidth: 6, align: 'center' });
             resultText.font = 'Righteous';
             resultText.fontSize = 50;
             
@@ -158,7 +158,7 @@ stage2.prototype = {
             spikes[0].body.enable = false;
             spikes[1].body.enable = false;
 
-            game.time.events.add(Phaser.Timer.SECOND * 3, this.switchState, this);
+            game.time.events.add(Phaser.Timer.SECOND * 3, upgrade.switchState, this, ['stage3']);
         }
       
     },
@@ -182,7 +182,7 @@ stage2.prototype = {
 
     },
 
-    moveSpike: function() {
+    moveSpike1: function() {
 
         var spikeMover = this.game.rnd.integerInRange(1, 2);
         
@@ -289,26 +289,6 @@ stage2.prototype = {
         }
         
     },
-    
-    switchState: function() {
-      
-      this.setScore();
-      this.setHealth();
-      this.game.state.start('stage3', true, false, this.score, player.health);
-      
-    },
-    
-    setScore: function() {
-      
-      window.score = this.score;
-      
-    },
-    
-    setHealth: function() {
-      
-      window.health = player.health;
-      
-    }
     
 };
 

@@ -92,7 +92,7 @@ stage3.prototype = {
             this.initSpike(spikes[i]);
         }
         
-        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike, this);
+        this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike1, this);
         this.game.time.events.loop(Phaser.Timer.SECOND, this.moveSpike2, this);
         this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike3, this);
         this.game.time.events.loop(Phaser.Timer.SECOND, this.moveSpike4, this);
@@ -186,7 +186,7 @@ stage3.prototype = {
 
     },
 
-    moveSpike: function() {
+    moveSpike1: function() {
 
         var spikeMover = this.game.rnd.integerInRange(1, 2);
         
