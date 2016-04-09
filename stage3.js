@@ -47,10 +47,7 @@ stage3.prototype = {
 
         // add platforms
         platforms = this.game.add.group();
-        platforms.enableBody = true;
-        var ground = platforms.create(0, this.game.world.height - 64, 'ground');
-        ground.scale.setTo(2, 2);
-        ground.body.immovable = true;
+        init.ground(platforms);
         
         // add ledges
         var ledge = platforms.create(550, 400, 'ground');
@@ -73,13 +70,8 @@ stage3.prototype = {
         
         // add player
         player = this.game.add.sprite(385, this.game.world.height - 430, 'loli');
-        this.game.physics.arcade.enable(player);
-        player.body.bounce.y = 0.2;
-        player.body.gravity.y = 350;
-        player.body.collideWorldBounds = true;
-        player.animations.add('left', [0, 1, 2, 3], 8, true);
-        player.animations.add('right', [5, 6, 7, 8], 8, true);
         player.health = this.health;
+        init.player(player);
         
         // add spikes
         spikes = [];
@@ -89,7 +81,7 @@ stage3.prototype = {
         spikes[3] = this.game.add.sprite(50, this.game.world.height - 400, 'shirokuma'); 
         
         for (var i = 0; i < spikes.length; i++) {
-            init.initSpike(spikes[i]);
+            init.spike(spikes[i]);
         }
         
         this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike1, this);
@@ -99,13 +91,7 @@ stage3.prototype = {
 
         // add stars
         stars = this.game.add.group();
-        stars.enableBody = true;
-
-        for (var i = 0; i < 12; i++) {
-            var star = stars.create(i * 70, 0, 'star');
-            star.body.gravity.y = 300;
-            star.body.bounce.y = 0.5 + Math.random() * 0.4;
-        }
+        init.stars(stars);
      
         // add score text
         scoreText = this.game.add.text(60, 60, 'score: ' + this.score, { fontSize: '32px', fill: '#000' });
@@ -130,7 +116,7 @@ stage3.prototype = {
         update.setCursor();
         
         if (player.health > 0) {
-            this.game.physics.arcade.overlap(player, stars, collect.collectStar, null, this);
+            this.game.physics.arcade.overlap(player, stars, collect.stars, null, this);
             this.game.physics.arcade.overlap(player, spikes, this.hurtPlayer, null, this);       
         }
         
@@ -138,7 +124,6 @@ stage3.prototype = {
             resultText = this.game.add.text(300, 180, 'YOU WIN', { fill: '#001a33', wordWrap: true, wordWrapWidth: 6, align: 'center' });
             resultText.font = 'Righteous';
             resultText.fontSize = 100;
-            // resultText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
             
             player.body.enable = false;
             spikes[0].body.enable = false;

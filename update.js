@@ -1,4 +1,5 @@
-var update = { 
+var update = {
+  
     setCollision: function(game) {
       
         game.physics.arcade.collide(player, platforms);
@@ -33,4 +34,5 @@ var update = {
       }
       
     }
+
 };

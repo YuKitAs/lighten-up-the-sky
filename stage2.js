@@ -47,10 +47,7 @@ stage2.prototype = {
 
         // add platforms
         platforms = this.game.add.group();
-        platforms.enableBody = true;
-        var ground = platforms.create(0, this.game.world.height - 64, 'ground');
-        ground.scale.setTo(2, 2);
-        ground.body.immovable = true;
+        init.ground(platforms);
         
         // add ledges
         var ledge = platforms.create(550, 400, 'ground');
@@ -70,13 +67,8 @@ stage2.prototype = {
         
         // add player
         player = this.game.add.sprite(50, this.game.world.height - 500, 'loli');
-        this.game.physics.arcade.enable(player);
-        player.body.bounce.y = 0.2;
-        player.body.gravity.y = 350;
-        player.body.collideWorldBounds = true;
-        player.animations.add('left', [0, 1, 2, 3], 8, true);
-        player.animations.add('right', [5, 6, 7, 8], 8, true);
         player.health = this.health;
+        init.player(player);
         
         // add spikes
         spikes = [];
@@ -85,7 +77,7 @@ stage2.prototype = {
         spikes[2] = this.game.add.sprite(450, this.game.world.height - 150, 'shirokuma'); 
         
         for (var i = 0; i < spikes.length; i++) {
-            init.initSpike(spikes[i]);
+            init.spike(spikes[i]);
         }
         
         this.game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike1, this);
@@ -94,13 +86,7 @@ stage2.prototype = {
 
         // add stars
         stars = this.game.add.group();
-        stars.enableBody = true;
-
-        for (var i = 0; i < 12; i++) {
-            var star = stars.create(i * 70, 0, 'star');
-            star.body.gravity.y = 300;
-            star.body.bounce.y = 0.5 + Math.random() * 0.4;
-        }
+        init.stars(stars);
      
         // add score text
         scoreText = this.game.add.text(60, 60, 'score: ' + this.score, { fontSize: '32px', fill: '#000' });
@@ -125,7 +111,7 @@ stage2.prototype = {
         update.setCursor();
         
         if (player.health > 0) {
-            this.game.physics.arcade.overlap(player, stars, collect.collectStar, null, this);
+            this.game.physics.arcade.overlap(player, stars, collect.stars, null, this);
             this.game.physics.arcade.overlap(player, spikes, this.hurtPlayer, null, this);       
         }
         
