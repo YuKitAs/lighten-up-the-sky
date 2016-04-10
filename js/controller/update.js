@@ -7,6 +7,7 @@ var update = {
       
         game.physics.arcade.collide(player, platforms);
         game.physics.arcade.collide(stars, platforms);
+        
         for (var i = 0; i < spikes.length; i++) {
             game.physics.arcade.collide(spikes[i], platforms);
         }

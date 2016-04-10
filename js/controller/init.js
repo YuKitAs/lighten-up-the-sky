@@ -23,17 +23,19 @@ var init = {
       
     },
   
-    spike: function(spike) {
-    
-        game.physics.arcade.enable(spike);
-        spike.body.gravity.y = 300;
-        spike.body.collideWorldBounds = true;
-        spike.animations.add('left', [0, 1], 6, true);
-        spike.animations.add('right', [2, 3], 6, true);
+    spike: function(spikes) {
+      
+        for (var i = 0; i < spikes.length; i++) {
+            game.physics.arcade.enable(spikes[i]);
+            spikes[i].body.gravity.y = 300;
+            spikes[i].body.collideWorldBounds = true;
+            spikes[i].animations.add('left', [0, 1], 6, true);
+            spikes[i].animations.add('right', [2, 3], 6, true);
+        }
     
     },
     
-    stars: function(stars) {
+    star: function(stars) {
         
         stars.enableBody = true;
 

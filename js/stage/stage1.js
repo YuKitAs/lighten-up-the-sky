@@ -56,19 +56,16 @@ stage1.prototype = {
         // add spikes
         spikes = [];
         spikes[0] = game.add.sprite(400, game.world.height - 150, 'shirokuma');
-        spikes[1] = game.add.sprite(700, game.world.height - 400, 'shirokuma');
-        
-        for (var i = 0; i < spikes.length; i++) {
-            init.spike(spikes[i]);
-        }
+        spikes[1] = game.add.sprite(700, game.world.height - 400, 'shirokuma');        
+        init.spike(spikes);
         
         // set movement of spikes
-        game.time.events.loop(Phaser.Timer.SECOND * 2, this.moveSpike1, this);
-        game.time.events.loop(Phaser.Timer.SECOND, this.moveSpike2, this);
+        game.time.events.loop(Phaser.Timer.SECOND * 2, move.spike, this, spikes[0], 200, 300);
+        game.time.events.loop(Phaser.Timer.SECOND, move.spike, this, spikes[1], 420, 600);
 
         // add stars
         stars = game.add.group();
-        init.stars(stars);
+        init.star(stars);
      
         // add score text
         this.score = 0;
@@ -95,104 +92,19 @@ stage1.prototype = {
         
         if (player.health > 0) {
             game.physics.arcade.overlap(player, stars, collect.stars, null, this);
-            game.physics.arcade.overlap(player, spikes, this.hurtPlayer, null, this);
+            game.physics.arcade.overlap(player, spikes, this.over, hurt.player, this);
         }
         
         if (this.score == 120) {
-            resultText = game.add.text(310, 200, 'STAGE CLEAR', { fill: '#FFF', wordWrap: true, wordWrapWidth: 6, align: 'center' });
-            resultText.font = 'Righteous';
-            resultText.fontSize = 50;
-            
-            player.body.enable = false;
-            spikes[0].body.enable = false;
-            spikes[1].body.enable = false;
-
+            upgrade.showResult(player, spikes);           
             game.time.events.add(Phaser.Timer.SECOND * 3, upgrade.switchState, this, ['stage2']);
         }
         
     },
 
-    moveSpike1: function() {
-
-        var spikeMover = game.rnd.integerInRange(1, 2);
+    over: function(player, spike) {
         
-        if (spikes[0].body.position.x <= 200) {
-            spikeMover = 1;
-        } else if (spikes[0].body.position.x >= 300) {
-            spikeMover = 2;
-        }
-        
-        if (spikeMover == 1) {
-            spikes[0].body.velocity.x = 50;
-            spikes[0].animations.play('right');	
-        }	else if (spikeMover == 2) {
-            spikes[0].body.velocity.x = -50;
-            spikes[0].animations.play('left');
-        }
-        
-    },
-
-    moveSpike2: function() {
-
-        var spikeMover = game.rnd.integerInRange(1, 2);
-        
-        if (spikes[1].body.position.x <= 420) {
-            spikeMover = 1;
-        } else if (spikes[1].body.position.x >= 600) {
-            spikeMover = 2;
-        }
-        
-        if (spikeMover == 1) {
-            spikes[1].body.velocity.x = 50;
-            spikes[1].animations.play('right');	
-        }	else if (spikeMover == 2) {
-            spikes[1].body.velocity.x = -50;
-            spikes[1].animations.play('left');
-        }
-        
-    },
-
-    hurtPlayer: function(player, spike) {
-
-        if (player.x < spike.x + 32) {
-            if (player.health > 10) {
-                player.health -= 10;
-                healthText.text = 'HP: ' + player.health;
-                // toss the player a little bit to the left
-                player.body.velocity.x = -300;
-                player.animations.play('left');
-            } else {
-                this.killPlayer(player, spike);
-            }           
-        } else {
-            if (player.health > 10) {
-                player.health -= 10;
-                healthText.text = 'HP: ' + player.health;
-                // toss the player a little bit to the right
-                player.body.velocity.x = 300;
-                player.animations.play('right');   
-            } else {
-                this.killPlayer(player, spike);
-            }
-        }
-        
-    },
-
-    killPlayer: function(player, spike) {
-        
-        player.kill();
-
-        player.health = 0;
-        healthText.text = 'HP: ' + player.health;
-        
-        spike.body.enable = false;
-
-        resultText = game.add.text(320, 200, 'GAME OVER', {fill: '#FFF', wordWrap: true, wordWrapWidth: 5, align: 'center' });
-        resultText.font = 'Righteous';
-        resultText.fontSize = 50;
-        
-        restart = game.add.text(320, 320, 'click to restart', {fill: '#FFF'});
-        restart.fontSize = 22;
+        kill.player(player, spike);
         
         window.onclick = function() {
             game.state.start('stage1');
