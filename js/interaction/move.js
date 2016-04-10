@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var move = {
   
     spike: function(spike, min, max) {

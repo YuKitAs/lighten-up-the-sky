@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var hurt = {
   
     player: function(player, spike) {

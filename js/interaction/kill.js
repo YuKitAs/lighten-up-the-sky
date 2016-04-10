@@ -1,3 +1,6 @@
+/**
+* @author   YuKitAs
+*/
 var kill = {
   
     player: function(player, spike) {
