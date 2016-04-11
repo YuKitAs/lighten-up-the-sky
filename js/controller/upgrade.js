@@ -1,7 +1,7 @@
 /**
 * @author   YuKitAs
 */
-var upgrade = {
+var Upgrade = {
   
     showResult: function(player, spikes) {
       
@@ -19,7 +19,7 @@ var upgrade = {
 
     switchState: function(newState) {
     
-        save.setHealth();
+        Save.setHealth();
         
         game.state.start(newState, true, false, this.score, player.health);
         

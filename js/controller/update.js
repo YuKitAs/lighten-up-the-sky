@@ -1,7 +1,7 @@
 /**
 * @author   YuKitAs
 */
-var update = {
+var Update = {
   
     setCollision: function(game) {
       

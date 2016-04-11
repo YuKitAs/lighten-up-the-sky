@@ -4,17 +4,15 @@
         <meta charset="UTF-8" />
         <title>LIGHTEN UP THE SKY</title>
         <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
-        <script type="text/javascript" src="js/stage/stage1.js"></script>
-        <script type="text/javascript" src="js/stage/stage2.js"></script>
-        <script type="text/javascript" src="js/stage/stage3.js"></script>
-        <script type="text/javascript" src="js/controller/init.js"></script>
-        <script type="text/javascript" src="js/interaction/move.js"></script>
-        <script type="text/javascript" src="js/interaction/hurt.js"></script>
-        <script type="text/javascript" src="js/interaction/kill.js"></script>
-        <script type="text/javascript" src="js/interaction/collect.js"></script>
-        <script type="text/javascript" src="js/controller/update.js"></script>
-        <script type="text/javascript" src="js/controller/save.js"></script>
-        <script type="text/javascript" src="js/controller/upgrade.js"></script>
+        <script type="text/javascript" src="js/stage/Stage1.js"></script>
+        <script type="text/javascript" src="js/stage/Stage2.js"></script>
+        <script type="text/javascript" src="js/stage/Stage3.js"></script>
+        <script type="text/javascript" src="js/interaction/Spike.js"></script>
+        <script type="text/javascript" src="js/interaction/Star.js"></script>
+        <script type="text/javascript" src="js/controller/Init.js"></script>
+        <script type="text/javascript" src="js/controller/Update.js"></script>
+        <script type="text/javascript" src="js/controller/Save.js"></script>
+        <script type="text/javascript" src="js/controller/Upgrade.js"></script>
         <style type="text/css">
             body {
                 margin: 0;
@@ -24,9 +22,9 @@
     <body>
         <script>
           var game = new Phaser.Game(800, 600, Phaser.AUTO);
-          game.state.add('stage1', stage1, true);
-          game.state.add('stage2', stage2);
-          game.state.add('stage3', stage3);
+          game.state.add('stage1', Stage1, true);
+          game.state.add('stage2', Stage2);
+          game.state.add('stage3', Stage3);
         </script>
     </body>
 </html>

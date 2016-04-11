@@ -1,7 +1,7 @@
 /**
 * @author   YuKitAs
 */
-var stage2 = function() {};
+var Stage2 = function() {};
 
 WebFontConfig = {
   
@@ -12,7 +12,7 @@ WebFontConfig = {
     
 };
 
-stage2.prototype = {
+Stage2.prototype = {
   
     init: function(score, health) {
       
@@ -41,7 +41,7 @@ stage2.prototype = {
 
         // add platforms
         platforms = game.add.group();
-        init.ground(platforms);
+        Init.ground(platforms);
         
         // add ledges
         var ledge = platforms.create(550, 400, 'ground');
@@ -62,22 +62,22 @@ stage2.prototype = {
         // add player
         player = game.add.sprite(50, game.world.height - 500, 'loli');
         player.health = this.health;
-        init.player(player);
+        Init.player(player);
         
         // add spikes
         spikes = [];
         spikes[0] = game.add.sprite(280, game.world.height - 150, 'shirokuma');
         spikes[1] = game.add.sprite(700, game.world.height - 400, 'shirokuma'); 
         spikes[2] = game.add.sprite(450, game.world.height - 150, 'shirokuma'); 
-        init.spike(spikes);
+        Init.spike(spikes);
         
-        game.time.events.loop(Phaser.Timer.SECOND * 2, move.spike, this, spikes[0], 200, 500);
-        game.time.events.loop(Phaser.Timer.SECOND, move.spike, this, spikes[1], 600, 670);
-        game.time.events.loop(Phaser.Timer.SECOND * 2, move.spike, this, spikes[2], 150, 400);
+        game.time.events.loop(Phaser.Timer.SECOND * 2, Spike.move, this, spikes[0], 200, 500);
+        game.time.events.loop(Phaser.Timer.SECOND, Spike.move, this, spikes[1], 600, 670);
+        game.time.events.loop(Phaser.Timer.SECOND * 2, Spike.move, this, spikes[2], 150, 400);
 
         // add stars
         stars = game.add.group();
-        init.star(stars);
+        Init.star(stars);
      
         // add score text
         scoreText = game.add.text(60, 60, 'score: ' + this.score, { fontSize: '32px', fill: '#000' });
@@ -97,25 +97,25 @@ stage2.prototype = {
 
     update: function() {
       
-        update.setCollision(game);
-        update.setPlayerMovement();
-        update.setCursor();
+        Update.setCollision(game);
+        Update.setPlayerMovement();
+        Update.setCursor();
         
         if (player.health > 0) {
-            game.physics.arcade.overlap(player, stars, collect.stars, null, this);
-            game.physics.arcade.overlap(player, spikes, this.over, hurt.player, this);
+            game.physics.arcade.overlap(player, stars, Star.collect, null, this);
+            game.physics.arcade.overlap(player, spikes, this.over, Spike.hurtPlayer, this);
         }
         
         if (this.score == 240) {
-            upgrade.showResult(player, spikes);
-            game.time.events.add(Phaser.Timer.SECOND * 3, upgrade.switchState, this, ['stage3']);
+            Upgrade.showResult(player, spikes);
+            game.time.events.add(Phaser.Timer.SECOND * 3, Upgrade.switchState, this, ['stage3']);
         }
       
     },
 
     over: function(player, spike) {
 
-        kill.player(player, spike);
+        Spike.killPlayer(player, spike);
         
         window.onclick = function() {
             game.state.start('stage2', true, false, 120, window.health);

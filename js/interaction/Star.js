@@ -1,9 +1,9 @@
 /**
 * @author   YuKitAs
 */
-var collect = {
+var Star = {
   
-    stars: function(player, star) {
+    collect: function(player, star) {
       
         star.kill();
         

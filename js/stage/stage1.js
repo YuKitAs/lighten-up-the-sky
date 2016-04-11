@@ -1,7 +1,7 @@
 /**
 * @author   YuKitAs
 */
-var stage1 = function() {};
+var Stage1 = function() {};
 
 WebFontConfig = {
   
@@ -12,7 +12,7 @@ WebFontConfig = {
     
 };
 
-stage1.prototype = {
+Stage1.prototype = {
   
     preload: function() {
 
@@ -34,7 +34,7 @@ stage1.prototype = {
 
         // add platforms
         platforms = this.game.add.group();
-        init.ground(platforms);
+        Init.ground(platforms);
 
         // add ledges
         var ledge = platforms.create(400, 400, 'ground');
@@ -51,21 +51,21 @@ stage1.prototype = {
         // add player
         player = game.add.sprite(32, game.world.height - 150, 'loli');
         player.health = 150;
-        init.player(player);
+        Init.player(player);
         
         // add spikes
         spikes = [];
         spikes[0] = game.add.sprite(400, game.world.height - 150, 'shirokuma');
         spikes[1] = game.add.sprite(700, game.world.height - 400, 'shirokuma');        
-        init.spike(spikes);
+        Init.spike(spikes);
         
         // set movement of spikes
-        game.time.events.loop(Phaser.Timer.SECOND * 2, move.spike, this, spikes[0], 200, 300);
-        game.time.events.loop(Phaser.Timer.SECOND, move.spike, this, spikes[1], 420, 600);
+        game.time.events.loop(Phaser.Timer.SECOND * 2, Spike.move, this, spikes[0], 200, 300);
+        game.time.events.loop(Phaser.Timer.SECOND, Spike.move, this, spikes[1], 420, 600);
 
         // add stars
         stars = game.add.group();
-        init.star(stars);
+        Init.star(stars);
      
         // add score text
         this.score = 0;
@@ -86,25 +86,25 @@ stage1.prototype = {
 
     update: function() {
         
-        update.setCollision(game);
-        update.setPlayerMovement();
-        update.setCursor();
+        Update.setCollision(game);
+        Update.setPlayerMovement();
+        Update.setCursor();
         
         if (player.health > 0) {
-            game.physics.arcade.overlap(player, stars, collect.stars, null, this);
-            game.physics.arcade.overlap(player, spikes, this.over, hurt.player, this);
+            game.physics.arcade.overlap(player, stars, Star.collect, null, this);
+            game.physics.arcade.overlap(player, spikes, this.over, Spike.hurtPlayer, this);
         }
         
         if (this.score == 120) {
-            upgrade.showResult(player, spikes);           
-            game.time.events.add(Phaser.Timer.SECOND * 3, upgrade.switchState, this, ['stage2']);
+            Upgrade.showResult(player, spikes);           
+            game.time.events.add(Phaser.Timer.SECOND * 3, Upgrade.switchState, this, ['stage2']);
         }
         
     },
 
     over: function(player, spike) {
         
-        kill.player(player, spike);
+        Spike.killPlayer(player, spike);
         
         window.onclick = function() {
             game.state.start('stage1');

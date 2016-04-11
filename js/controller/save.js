@@ -1,7 +1,7 @@
 /**
 * @author   YuKitAs
 */
-var save = {
+var Save = {
   
     setHealth: function() {
 

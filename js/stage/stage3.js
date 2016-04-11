@@ -1,7 +1,7 @@
 /**
 * @author   YuKitAs
 */
-var stage3 = function() {};
+var Stage3 = function() {};
 
 WebFontConfig = {
   
@@ -12,7 +12,7 @@ WebFontConfig = {
     
 };
 
-stage3.prototype = {
+Stage3.prototype = {
   
     init: function(score, health) {
       
@@ -41,7 +41,7 @@ stage3.prototype = {
 
         // add platforms
         platforms = game.add.group();
-        init.ground(platforms);
+        Init.ground(platforms);
         
         // add ledges
         var ledge = platforms.create(550, 400, 'ground');
@@ -65,7 +65,7 @@ stage3.prototype = {
         // add player
         player = game.add.sprite(385, game.world.height - 430, 'loli');
         player.health = this.health;
-        init.player(player);
+        Init.player(player);
         
         // add spikes
         spikes = [];
@@ -73,16 +73,16 @@ stage3.prototype = {
         spikes[1] = game.add.sprite(700, game.world.height - 400, 'shirokuma'); 
         spikes[2] = game.add.sprite(450, game.world.height - 150, 'shirokuma'); 
         spikes[3] = game.add.sprite(50, game.world.height - 400, 'shirokuma'); 
-        init.spike(spikes);
+        Init.spike(spikes);
         
-        game.time.events.loop(Phaser.Timer.SECOND * 2, move.spike, this, spikes[0], 200, 500);
-        game.time.events.loop(Phaser.Timer.SECOND, move.spike, this, spikes[1], 600, 670);
-        game.time.events.loop(Phaser.Timer.SECOND * 2, move.spike, this, spikes[2], 200, 500);
-        game.time.events.loop(Phaser.Timer.SECOND, move.spike, this, spikes[3], 50, 150);
+        game.time.events.loop(Phaser.Timer.SECOND * 2, Spike.move, this, spikes[0], 200, 500);
+        game.time.events.loop(Phaser.Timer.SECOND, Spike.move, this, spikes[1], 600, 670);
+        game.time.events.loop(Phaser.Timer.SECOND * 2, Spike.move, this, spikes[2], 200, 500);
+        game.time.events.loop(Phaser.Timer.SECOND, Spike.move, this, spikes[3], 50, 150);
 
         // add stars
         stars = game.add.group();
-        init.star(stars);
+        Init.star(stars);
      
         // add score text
         scoreText = game.add.text(60, 60, 'score: ' + this.score, { fontSize: '32px', fill: '#000' });
@@ -102,13 +102,13 @@ stage3.prototype = {
 
     update: function() {
       
-        update.setCollision(game);
-        update.setPlayerMovement();
-        update.setCursor();
+        Update.setCollision(game);
+        Update.setPlayerMovement();
+        Update.setCursor();
         
         if (player.health > 0) {
-            game.physics.arcade.overlap(player, stars, collect.stars, null, this);
-            game.physics.arcade.overlap(player, spikes, this.over, hurt.player, this);   
+            game.physics.arcade.overlap(player, stars, Star.collect, null, this);
+            game.physics.arcade.overlap(player, spikes, this.over, Spike.hurtPlayer, this);   
         }
         
         if (this.score == 360) {
@@ -127,7 +127,7 @@ stage3.prototype = {
 
     over: function(player, spike) {
         
-        kill.player(player, spike);
+        Spike.killPlayer(player, spike);
         
         window.onclick = function() {
             game.state.start('stage3', true, false, 240, window.health);
