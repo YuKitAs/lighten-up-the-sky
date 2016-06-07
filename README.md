@@ -9,4 +9,4 @@ In order to lighten up the sky and get to the end, the player has to jump the sp
 
 All the images except the "star" are originally drawn by YuKitAs with GIMP. The "star.png" is downloaded from Phaser resources.
 
-![avatar](../blob/master/assets/loli-avatar.png?raw=true)
+![avatar](../master/assets/loli-avatar.png?raw=true)
