@@ -1,4 +1,4 @@
-# lighten-up-the-sky
+# Lighten Up The Sky
 My first 2D platform game made with [Phaser](http://phaser.io/).
 
 
