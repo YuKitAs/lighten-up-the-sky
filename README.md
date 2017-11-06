@@ -1,5 +1,7 @@
 # Lighten Up The Sky
-My first 2D platform game made with [Phaser](http://phaser.io/) 2.2.2 (this version is no longer supported).
+**This project has been deprecated.**
+
+My first 2D platform game made with [Phaser](http://phaser.io/) 2.2.2.
 
 The game contains 3 levels.
 
